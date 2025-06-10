@@ -1,0 +1,241 @@
+/* تعریف فونت شخصی شما */
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('../fonts/IRANYekanX-Regular.ttf');
+}
+
+/* --- استایل‌های پایه و مینیمال --- */
+body {
+    font-family: 'MyCustomFont', Vazirmatn, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container, .container-fluid {
+    max-width: 1360px; /* افزایش عرض برای صفحه دو ستونه */
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+/* --- استایل کارت اصلی (فرم و نتیجه) --- */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%; /* برای هماهنگی ارتفاع ستون‌ها */
+}
+
+.card-header {
+    background: none !important;
+    border: none;
+    padding: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.card-header h3, .card-header h1 {
+    font-weight: 700;
+    color: #343a40;
+}
+
+/* --- استایل اینپوت‌ها با رنگ اصلی جدید --- */
+.form-control, .form-select {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #ffffff;
+    border-color: #012BF9; /* <-- رنگ اصلی */
+    box-shadow: 0 0 0 0.25rem rgba(1, 43, 249, 0.25);
+    outline: none;
+}
+
+textarea:disabled {
+    background-color: #e9ecef !important;
+    cursor: not-allowed;
+}
+
+.form-check-input {
+    box-shadow: none !important;
+}
+
+.form-check-input:checked {
+    background-color: #012BF9; /* <-- رنگ اصلی */
+    border-color: #012BF9;
+}
+
+
+/* --- استایل دکمه اصلی --- */
+.btn-primary {
+    background-color: #012BF9; /* <-- رنگ اصلی */
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #011fbf;
+    transform: translateY(-2px);
+}
+
+/* --- استایل‌های صفحه نتایج و ستون کناری --- */
+.sidebar .card {
+    padding: 1.5rem; /* پدینگ کمتر برای کارت‌های کناری */
+}
+
+.sidebar .card-title {
+    color: #012BF9; /* <-- رنگ اصلی برای تیتر ابزارها */
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.list-group-flush .list-group-item {
+    background-color: transparent;
+    border-color: #f1f3f5;
+    padding: 0.8rem 0.2rem;
+    font-size: 0.9rem;
+}
+
+.copy-btn {
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    filter: grayscale(40%);
+    opacity: 0.6;
+}
+
+.copy-btn:hover {
+    transform: scale(1.15);
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.article-content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 0; /* پدینگ به خود کارت منتقل شد */
+    line-height: 1.9; /* افزایش فاصله خطوط برای خوانایی بهتر */
+    text-align: justify;
+}
+
+blockquote {
+    background-color: #fff9e6; /* رنگ پس زمینه ملایم برای نقل قول */
+    border-right: 5px solid #FFB414; /* <-- رنگ مکمل جدید */
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    border-radius: 8px 0 0 8px; /* گوشه‌های گرد در سمت دیگر */
+}
+
+.alert-success {
+    background-color: #e6f7ff;
+    color: #012BF9; /* <-- رنگ اصلی */
+    border: 1px solid #b3e0ff;
+    border-radius: 8px;
+}
+
+/* تمام محتوای قبلی فایل CSS را نگه دارید و فقط این چند خط جدید را به انتهای آن اضافه کنید */
+
+/* ... (تمام کدهای CSS قبلی شما اینجا قرار دارد) ... */
+
+
+/* --- استایل‌های جدید برای لوگو و فوتر --- */
+.logo {
+    max-width: 150px; /* حداکثر عرض لوگو */
+    height: auto;
+    margin-bottom: 1rem; /* فاصله از پایین */
+}
+
+.card-footer {
+    background: none; /* بدون پس‌زمینه */
+    border-top: 1px solid #e9ecef; /* یک خط جداکننده ظریف */
+    padding-top: 1rem;
+    font-size: 0.8rem; /* اندازه فونت کوچکتر */
+    color: #888; /* رنگ خاکستری ملایم */
+}
+
+/* ... (تمام کدهای CSS قبلی شما اینجا قرار دارد) ... */
+
+/* --- استایل جدید برای دکمه پیشنهاد هدینگ --- */
+.suggest-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.8em !important;
+    padding: 0.2rem 0.6rem !important;
+}
+
+.suggest-btn .spinner-border {
+    margin-left: 5px;
+}
+
+/* ... (تمام کدهای CSS قبلی شما اینجا قرار دارد) ... */
+
+/* --- استایل بخش تحلیل رقبا --- */
+.competitors-section {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.competitors-title {
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.competitors-title i {
+    color: #FFB414; /* <-- استفاده از رنگ مکمل شما */
+    margin-left: 10px;
+    vertical-align: -2px;
+}
+
+.competitor-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0 !important;
+    border-color: #e9ecef !important;
+}
+
+.competitor-rank {
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.competitor-link {
+    text-decoration: none;
+    color: #212529;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.competitor-link:hover {
+    color: #012BF9; /* <-- استفاده از رنگ اصلی شما */
+}
+
+.competitor-domain {
+    font-size: 0.85rem;
+}

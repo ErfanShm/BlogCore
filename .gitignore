@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+virtualenv/
+voyenv/
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# Project specific generated files
+data/generated_docs/
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Operating System files
+.DS_Store
+thumbs.db
+
+# Google Cloud credentials
+credentials.json
+
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بریف محتوایی برای: {{ keyword }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="page-result">
+    <div class="container my-5">
+        <div class="text-center mb-4 nav-links">
+            <a href="/" class="btn btn-outline-secondary">مولد مقاله</a>
+            <a href="/brief" class="btn btn-outline-secondary">تولید بریف جدید</a>
+        </div>
+
+        {% if error %}
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="alert alert-danger">{{ error }}</div>
+                <a href="/brief" class="btn btn-primary mt-3">تلاش مجدد</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="card">
+            <div class="card-header">
+                <h1>بریف محتوایی برای: "{{ keyword }}"</h1>
+            </div>
+            <div class="card-body">
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-search"></i> نیت جستجو کاربر (Search Intent)</h5>
+                        <p class="brief-section-content">{{ brief.search_intent }}</p>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-list-ol"></i> ساختار پیشنهادی محتوا</h5>
+                        <ul class="list-group list-group-flush brief-section-content">
+                            {% for heading in brief.content_structure %}
+                                <li class="list-group-item">{{ heading }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-tags-fill"></i> کلمات کلیدی اصلی و فرعی</h5>
+                        <div class="brief-section-content">
+                            <p><strong>اصلی:</strong> <span class="badge bg-primary keyword-badge">{{ brief.keywords.primary }}</span></p>
+                            <p><strong>فرعی:</strong>
+                                {% for kw in brief.keywords.secondary %}
+                                    <span class="badge bg-secondary keyword-badge">{{ kw }}</span>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-lightbulb-fill"></i> عناصر و نکات کلیدی محتوا</h5>
+                        <ul class="list-group list-group-flush brief-section-content">
+                            {% for element in brief.key_elements %}
+                                <li class="list-group-item">{{ element }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-cursor-fill"></i> پیشنهاد برای فراخوانی به اقدام (CTA)</h5>
+                        <ul class="list-group list-group-flush brief-section-content">
+                            {% for cta in brief.cta_suggestions %}
+                                <li class="list-group-item">{{ cta }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
