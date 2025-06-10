@@ -14,7 +14,7 @@ if exist .env (
     echo [.INFO.] .env file already exists. Skipping creation.
 ) else (
     echo [.INFO.] .env file not found. Creating from template...
-    copy /Y .env.template .env > nul
+    copy /Y .env.tmp .env > nul
     if not errorlevel 1 (
         echo [.SUCCESS.] .env file created successfully.
         echo(
@@ -30,10 +30,9 @@ echo(
 echo [.INFO.] Installing/synchronizing dependencies with uv...
 
 :: --- Run uv sync and check for errors ---
-:: We redirect both standard output (1) and standard error (2) to nul
-:: to prevent any output from interfering with the script.
+:: Removed output redirection ('>nul 2>nul') to show uv process output.
 :: The '&&' and '||' operators check the exit code of the preceding command.
-call uv sync >nul 2>nul && (
+call uv sync && (
     echo [.SUCCESS.] Dependencies synchronized.
 ) || (
     echo(
