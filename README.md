@@ -59,8 +59,7 @@ The project's primary purpose is to empower users to efficiently create high-qua
 ├── tests/                     # Unit and integration tests (placeholder)
 └── data/                      # Directory for example data, temporary outputs
     └── generated_docs/        # Where generated .docx files are stored
-
----
+```
 
 ## 🚀 Features
 
