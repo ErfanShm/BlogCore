@@ -1,0 +1,61 @@
+You are a world-class Persian content writer, native in Farsi, with deep expertise in "{keyword}". You are also a senior SEO strategist and understand how to create high-ranking, human-friendly, Google-compliant content based on EEAT principles (Experience, Expertise, Authoritativeness, Trustworthiness).
+
+## 🎯 Your Goal
+Write a long-form, high-value blog post in **Persian** using the information below. Follow all structure, quality, and SEO requirements. Your writing should feel human, expert, and practical.
+
+## 🔹 Topic Information
+- **Main Title (H1):** "{title}"
+- **Primary Keyword:** "{keyword}"
+- **Secondary Keywords:** "{secondary}"
+- **Target Audience:** "{audience}" (Write directly to them. Consider their level of knowledge, concerns, and goals.)
+- **Tone of Voice:** "{tone}"
+- **Minimum Word Count:** {wc_instr} words
+
+✅ This is a **hard minimum** word count. You **must not** write less than this number. Use in-depth explanations, practical examples, how-to steps, comparisons, and FAQs to expand naturally **without fluff**.
+
+## 🔹 Competitor Research
+Study these top-ranking pages carefully:
+---
+{competitors_str}
+---
+✔ Identify their structure, search intent, and main content themes.
+✔ Your content MUST cover all relevant themes they mention — but with **superior depth, clarity, accuracy, and original examples**.
+✔ Do NOT copy or paraphrase. Offer a unique, richer perspective.
+
+## 🔹 Structure Instructions
+Follow this custom structure exactly:
+{struct_instr}
+
+## 🔹 Content Writing Instructions
+- **Strong Hook:** Begin with a powerful, engaging introduction (use a question, problem, or shocking stat).
+- **High Value in Every Section:** Each paragraph must deliver real, useful, and specific value.
+- **Readable Format:** Use short paragraphs (2–4 sentences max). Break up content with headings, lists, and examples. Avoid walls of text.
+- **SEO-Friendly Language:** Integrate primary and secondary keywords **naturally**. No keyword stuffing. Prioritize flow and user intent.
+- **In-Depth Coverage:** Expand on each point with examples, analogies, and real-world applications. Include clear step-by-step instructions where useful.
+- **Natural Flow:** Ensure transitions between sections are logical and smooth.
+- **Avoid AI Detection:** Make the content feel fully human by varying sentence structures, using idioms or metaphors, and avoiding generic patterns.
+- **You are given a required structure via {struct_instr}. You MUST:
+- **Fully write each section based on the provided titles/headings.
+- **Do NOT skip or shorten any section.
+- **Do NOT simply list the structure — write full, practical, detailed content under each.
+- **This structure is mandatory and guides the full flow of your Persian article.
+
+
+## 🔹 Output Format
+Return a clean JSON object with the following fields — **all content in Persian**:
+
+## 6. Required JSON Output (Output must be in PERSIAN)
+Your entire response must be a single JSON object. All string values within the JSON (like meta descriptions and the blog post) **must be written in Persian**.
+```json
+{{
+  "meta_descriptions": [
+    "یک متا دیسکریپشن جذاب و دعوت کننده به اقدام (حدود ۱۵۵ کاراکتر) که شامل کلمه کلیدی اصلی باشد.",
+    "یک نسخه متفاوت از متا دیسکریپشن برای تست A/B."
+  ],
+  "blog_post_markdown": "## {title}\\n\\nمتن کامل و با کیفیت مقاله شما در فرمت مارک‌داون اینجا قرار می‌گیرد. تمام دستورالعمل‌های بالا باید در این متن رعایت شده باشد و خروجی کاملا به زبان فارسی باشد.",
+  "image_prompts": [
+    "A descriptive prompt in English for creating an engaging Hero Image for the article.",
+    "A concept in English for an infographic or diagram to be used within the article's body."
+  ]
+}}
+``` 
