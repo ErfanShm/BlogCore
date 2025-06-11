@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد مقاله - کلمه</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .form-label i { margin-left: 8px; vertical-align: -2px; }
+    </style>
+</head>
+<body class="page-index">
+    <div class="container my-5">
+        <div class="container pt-4 text-center">
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">بازگشت به صفحه اصلی</a>
+            </div>
+        </div>
+        <div class="card shadow-sm">
+            <div class="text-center pt-4 px-4">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Kalameh Logo" class="logo">
+            </div>
+            <div class="card-header">
+                <h3 class="mb-0 text-center">تولید مقاله مبتنی بر سئو</h3>
+            </div>
+            <div class="card-body pt-0">
+                <p class="card-text text-muted text-center mb-4">برای تولید مقاله، لطفاً فرم زیر را با دقت تکمیل کنید.</p>
+                <form action="/generate" method="post" id="article-form">
+                    <div class="row">
+                        <!-- عنوان مقاله -->
+                        <div class="mb-3 col-md-6">
+                            <label for="article_title" class="form-label">
+                                <b><i class="bi bi-pencil-square"></i> عنوان اصلی مقاله (H1):</b>
+                            </label>
+                            <input type="text" class="form-control" id="article_title" name="article_title" required>
+                        </div>
+                        <!-- کلمه کلیدی اصلی -->
+                        <div class="mb-3 col-md-6">
+                            <label for="keyword" class="form-label">
+                                <b><i class="bi bi-key-fill"></i> کلمه کلیدی اصلی:</b>
+                            </label>
+                            <input type="text" class="form-control" id="keyword" name="keyword" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- کلمات کلیدی فرعی -->
+                        <div class="mb-3 col-md-6">
+                            <label for="secondary_keywords" class="form-label">
+                                <b><i class="bi bi-tags-fill"></i> کلمات کلیدی فرعی (با کاما , جدا کنید):</b>
+                            </label>
+                            <input type="text" class="form-control" id="secondary_keywords" name="secondary_keywords">
+                        </div>
+                        <!-- تعداد کلمات -->
+                        <div class="mb-3 col-md-6">
+                            <label for="word_count" class="form-label">
+                                <b><i class="bi bi-file-earmark-text-fill"></i> تعداد کلمات تقریبی:</b>
+                            </label>
+                            <input type="number" class="form-control" id="word_count" name="word_count" min="50">
+                        </div>
+                    </div>
+                
+                    <!-- ردیف ویژه: مخاطب هدف (زیر هم/تمام عرض) -->
+                    <div class="mb-3">
+                        <label for="audience" class="form-label">
+                            <b><i class="bi bi-people-fill"></i> مخاطب هدف:</b>
+                        </label>
+                        <input type="text" class="form-control" id="audience" name="audience" required>
+                    </div>
+                
+                    <!-- ردیف ویژه: ساختار هدینگ‌ها (زیر هم/تمام عرض) -->
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="auto_headings_checkbox" name="auto_headings" value="true" onchange="toggleHeadingsInput()">
+                        <label class="form-check-label" for="auto_headings_checkbox"><i class="bi bi-magic"></i> اجازه بده هوش مصنوعی بهترین ساختار را پیشنهاد دهد</label>
+                    </div>
+                
+                    <div class="mb-1 position-relative">
+                        <label for="headings" class="form-label"><b><i class="bi bi-list-ol"></i> ساختار هدینگ‌های بعدی:</b></label>
+                        <button type="button" id="suggest-headings-btn" class="btn btn-outline-primary btn-sm suggest-btn" onclick="fetchAndSetHeadings()">
+                            <i class="bi bi-stars"></i> پیشنهاد هوشمند
+                        </button>
+                        <textarea class="form-control" id="headings_textarea" name="headings" rows="5" required></textarea>
+                    </div>
+                
+                    <!-- سایر گزینه‌ها ۲تایی کنار هم -->
+                    <div class="row">
+                        <!-- لحن مقاله -->
+                        <div class="mb-3 col-md-6">
+                            <label for="tone" class="form-label">
+                                <b><i class="bi bi-mic-fill"></i> لحن مقاله:</b>
+                            </label>
+                            <select class="form-select" id="tone" name="tone">
+                                <option value="دوستانه و صمیمی">دوستانه و صمیمی</option>
+                                <option value="رسمی و تخصصی">رسمی و تخصصی</option>
+                                <option value="ساده و آموزشی">ساده و آموزشی</option>
+                            </select>
+                        </div>
+                        <!-- میزان خلاقیت -->
+                        <div class="mb-3 col-md-6">
+                            <label for="temperature" class="form-label">
+                                <b><i class="bi bi-lightbulb-fill"></i> میزان خلاقیت: <span id="tempValue">0.7</span></b>
+                            </label>
+                            <input type="range" class="form-range" id="temperature" name="temperature" min="0" max="1.5" step="0.1" value="0.7" oninput="updateTempValue(this.value)">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg mt-4" id="generate-article-btn">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        <span class="button-text">تولید مقاله</span>
+                    </button>
+                </form>                
+            </div>
+            <div class="card-footer text-center">
+                Directed By Behrad Yazdanpanah - Kalameh CEO
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // المنت‌ها را یک بار در ابتدا پیدا می‌کنیم
+        const checkbox = document.getElementById('auto_headings_checkbox');
+        const textarea = document.getElementById('headings_textarea');
+        const suggestBtn = document.getElementById('suggest-headings-btn');
+
+        // New elements for article generation
+        const articleForm = document.getElementById('article-form');
+        const generateArticleBtn = document.getElementById('generate-article-btn');
+        const generateArticleBtnText = generateArticleBtn.querySelector('.button-text');
+        const generateArticleBtnSpinner = generateArticleBtn.querySelector('.spinner-border');
+
+        function toggleHeadingsInput() {
+            if (checkbox.checked) {
+                // حالت خودکار: تکست‌اریا غیرفعال، دکمه مخفی
+                textarea.disabled = true;
+                textarea.required = false;
+                textarea.value = '';
+                suggestBtn.style.display = 'none';
+            } else {
+                // حالت دستی: تکست‌اریا فعال، دکمه نمایان
+                textarea.disabled = false;
+                textarea.required = true;
+                suggestBtn.style.display = 'inline-block';
+            }
+        }
+
+        function fetchAndSetHeadings() {
+            const keyword = document.getElementById('keyword').value;
+            if (!keyword) {
+                alert('لطفاً ابتدا کلمه کلیدی اصلی را وارد کنید.');
+                return;
+            }
+
+            // نمایش حالت لودینگ
+            suggestBtn.disabled = true;
+            suggestBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> در حال ساخت...';
+            textarea.placeholder = "در حال دریافت پیشنهاد از هوش مصنوعی...";
+
+            // ارسال درخواست به سرور
+            fetch('/suggest-headings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ keyword: keyword }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.headings) {
+                    textarea.value = data.headings;
+                } else if (data.error) {
+                    alert('خطا: ' + data.error);
+                }
+                // بازگرداندن دکمه به حالت اولیه
+                suggestBtn.disabled = false;
+                suggestBtn.innerHTML = '<i class="bi bi-stars"></i> پیشنهاد هوشمند';
+                textarea.placeholder = "";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('یک خطای شبکه رخ داد. لطفاً دوباره تلاش کنید.');
+                // بازگرداندن دکمه به حالت اولیه
+                suggestBtn.disabled = false;
+                suggestBtn.innerHTML = '<i class="bi bi-stars"></i> پیشنهاد هوشمند';
+                textarea.placeholder = "";
+            });
+        }
+
+        function updateTempValue(val) {
+            document.getElementById('tempValue').textContent = val;
+        }
+
+        // Handle article form submission
+        articleForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Show loading state
+            generateArticleBtn.disabled = true;
+            generateArticleBtnText.textContent = 'در حال تولید...';
+            generateArticleBtnSpinner.style.display = 'inline-block';
+
+            const formData = new FormData(articleForm);
+
+            fetch('/generate', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                // Check for successful response, then redirect or handle error
+                if (response.ok) {
+                    // If the response is a redirect, explicitly navigate the browser
+                    window.location.href = response.url;
+                } else {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.error || 'خطای ناشناخته در تولید مقاله');
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('خطا در تولید مقاله: ' + error.message);
+            })
+            .finally(() => {
+                // Hide loading state
+                generateArticleBtn.disabled = false;
+                generateArticleBtnText.textContent = 'تولید مقاله';
+                generateArticleBtnSpinner.style.display = 'none';
+            });
+        });
+
+        // اجرای تابع در ابتدای بارگذاری صفحه برای تنظیم حالت اولیه دکمه
+        document.addEventListener('DOMContentLoaded', toggleHeadingsInput);
+    </script>
+</body>
+</html>

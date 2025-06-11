@@ -11,8 +11,8 @@
 <body class="page-result">
     <div class="container my-5">
         <div class="text-center mb-4 nav-links">
-            <a href="/" class="btn btn-outline-secondary">مولد مقاله</a>
-            <a href="/brief" class="btn btn-outline-secondary">تولید بریف جدید</a>
+            <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">بازگشت به صفحه اصلی</a>
+            <a href="{{ url_for('main.content_brief_page') }}" class="btn btn-outline-secondary">تولید بریف محتوایی جدید</a>
         </div>
 
         {% if error %}
@@ -48,6 +48,24 @@
 
                 <div class="brief-section card mb-4">
                     <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-person-fill"></i> مخاطب هدف (Target Audience)</h5>
+                        <p class="brief-section-content">{{ brief.target_audience }}</p>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-lightbulb-fill"></i> عناوین جذاب پیشنهادی (Catchy Titles)</h5>
+                        <ul class="list-group list-group-flush brief-section-content">
+                            {% for title in brief.catchy_titles %}
+                                <li class="list-group-item">{{ title }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
                         <h5 class="brief-section-title"><i class="bi bi-tags-fill"></i> کلمات کلیدی اصلی و فرعی</h5>
                         <div class="brief-section-content">
                             <p><strong>اصلی:</strong> <span class="badge bg-primary keyword-badge">{{ brief.keywords.primary }}</span></p>
@@ -57,6 +75,28 @@
                                 {% endfor %}
                             </p>
                         </div>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-graph-up-arrow"></i> نکات سئو (SEO Tips)</h5>
+                        <ul class="list-group list-group-flush brief-section-content">
+                            {% for tip in brief.seo_tips %}
+                                <li class="list-group-item">{{ tip }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brief-section card mb-4">
+                    <div class="card-body">
+                        <h5 class="brief-section-title"><i class="bi bi-question-circle-fill"></i> سوالات متداول (FAQ)</h5>
+                        <ul class="list-group list-group-flush brief-section-content">
+                            {% for q_a in brief.faq %}
+                                <li class="list-group-item"><strong>{{ q_a.question }}:</strong> {{ q_a.answer }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
 
