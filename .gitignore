@@ -27,4 +27,5 @@ thumbs.db
 # Google Cloud credentials
 credentials.json
 
+.cursor
 
